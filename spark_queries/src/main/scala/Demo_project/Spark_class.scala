@@ -11,11 +11,7 @@ class Spark {
   .config ("spark.some.config.option", "some-value")
   .getOrCreate ()
  
-  
-  
-  
-  
-   // query 1 read the csv file
+  // query 1 read the csv 
   val data = spark.read.option ("header", "true").csv ("/home/nidhi/Desktop/nidhiarora/spark_queries/src/main/resources/FL_insurance_sample.csv")
   //query 2 print the schema of file
   data.printSchema ()
@@ -26,7 +22,7 @@ class Spark {
   
   
 //query 3 casting of columns into Doubletype
-  def schema1(data:DataFrame,eq_site_limit: String, hu_site_limit: String, fl_site_limit: String, fr_site_limit:String, tiv_2011:String, tiv_2012:String, eq_site_deductible:String,
+  def schema1(eq_site_limit: String, hu_site_limit: String, fl_site_limit: String, fr_site_limit:String, tiv_2011:String, tiv_2012:String, eq_site_deductible:String,
               hu_site_deductible:String, fl_site_deductible:String, fr_site_deductible:String   ): DataFrame= {
     val  data2 = data.withColumn("eq_site_limit", col("eq_site_limit").cast(DoubleType))
       .withColumn("hu_site_limit", col("hu_site_limit").cast(DoubleType))
@@ -42,7 +38,7 @@ class Spark {
   }
   
   //query 4 unpivot the data
-  def unpivot( data:DataFrame,policyId:String,statecode:String, county:String, construction:String,point_latitude:String, point_longitude:String,
+  def unpivot( policyId:String,statecode:String, county:String, construction:String,point_latitude:String, point_longitude:String,
     eq_site_limit:Double, hu_site_limit:Double, fl_site_limit: Double, fr_site_limit:Double, tiv_2011:Double, tiv_2012:Double, eq_site_deductible:Double
     ,hu_site_deductible:Double, fl_site_deductible:Double, fr_site_deductible:Double ) :DataFrame= {
     val DF4 = data.selectExpr("policyId", "statecode", "county", "construction", "point_latitude",
@@ -61,7 +57,7 @@ class Spark {
     DF4
   }
   //Check how many point_latitude and point_longitude values are there for each policyID
-  def groupby (data:DataFrame,policyId:String,  point_latitude:String, point_longitude:String):DataFrame = {
+  def groupby (policyId:String,  point_latitude:String, point_longitude:String):DataFrame = {
 
     val df8 = data.groupBy("policyID").agg(collect_list("point_longitude"), collect_list("point_latitude"))
 
