@@ -73,8 +73,8 @@ def main (args:Array[String]):Unit ={
 
 
 
-  a.unpivot (data, "1", "2", "3", "4", "5", "6", 2.0, 3.0, 2, 3, 4, 4, 6, 5, 5, 3).show()
-  a.groupby (data, "1", "2", "3").show()
+ spark.time( a.unpivot (data, "1", "2", "3", "4", "5", "6", 2.0, 3.0, 2, 3, 4, 4, 6, 5, 5, 3).show())
+  spark.time(a.groupby (data, "1", "2", "3").show())
 
 }
 }
