@@ -1,11 +1,13 @@
 ##demo_projects
 
 ScalaVersion := "2.11.12"
+
 Spark version :="2.4.0"
+
 Scala Test    :="3.0.8"
 
 
-Query 1 :To read the data through in built read function .
+Query 1 : To read the data through in built read function .
 ~~~
 spark.read.option("header", "true").csv("/home/nidhi/Desktop/FL_insurance_sample.csv")
 ~~~
@@ -17,7 +19,7 @@ data.printschema()
 ~~~
 data.show()
 ~~~
-Query 3 :Casting of columns into Doubletype.
+Query 3 : Casting of columns into Doubletype.
 ~~~
 data1.withColumn("eq_site_limit", data1("eq_site_limit").cast(DoubleType) .withColumn("hu_site_limit",data1("hu_site_limit").cast(DoubleType))
 ~~~
@@ -31,7 +33,7 @@ Query 5 and query 6: To  count of limit_value for each policyID, statecode, coun
 ~~~
 DF4.groupBy("policyId", "statecode", "county", "Limitcode").agg(count("Limitvalue")).withColumn("processing_datetime_utc", lit((0))).show()
 ~~~
-Query 7:Get the count of all records by grouping point_latitude and point_longitude on data retrieved.
+Query 7: Get the count of all records by grouping point_latitude and point_longitude on data retrieved.
 ~~~
 val df7 = DF4.groupBy("point_longitude", "point_latitude").count().show()
 ~~~
