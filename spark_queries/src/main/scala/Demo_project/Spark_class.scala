@@ -19,6 +19,7 @@ class Spark {
   val data = spark.read.option ("header", "true").csv ("/home/nidhi/Desktop/nidhiarora/spark_queries/src/main/resources/FL_insurance_sample.csv")
   //query 2 print the schema of file
   data.printSchema ()
+  data.persist()
   //query 2 show the data of the file
   data.show ()
   
@@ -37,7 +38,7 @@ class Spark {
       .withColumn("hu_site_deductible", col("hu_site_deductible").cast(DoubleType))
       .withColumn("fl_site_deductible", col("fl_site_deductible").cast(DoubleType))
       .withColumn("fr_site_deductible", col("fr_site_deductible").cast(DoubleType))
-    data2
+    data2.persist()
   }
   
   //query 4 unpivot the data
