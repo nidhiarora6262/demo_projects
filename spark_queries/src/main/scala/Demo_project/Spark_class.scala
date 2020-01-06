@@ -7,6 +7,23 @@ import org.apache.spark.sql.types.DoubleType
 import org.apache.spark.sql.functions._
 class Spark {
   
+  val spark = SparkSession.builder ().master ("local[*]").appName ("example of SparkSession")
+  .config ("spark.some.config.option", "some-value")
+  .getOrCreate ()
+ 
+  
+  
+  
+  
+   // query 1 read the csv file
+  val data = spark.read.option ("header", "true").csv ("/home/nidhi/Desktop/nidhiarora/spark_queries/src/main/resources/FL_insurance_sample.csv")
+  //query 2 print the schema of file
+  data.printSchema ()
+  //query 2 show the data of the file
+  data.show ()
+  
+  
+  
 //query 3 casting of columns into Doubletype
   def schema1(data:DataFrame,eq_site_limit: String, hu_site_limit: String, fl_site_limit: String, fr_site_limit:String, tiv_2011:String, tiv_2012:String, eq_site_deductible:String,
               hu_site_deductible:String, fl_site_deductible:String, fr_site_deductible:String   ): DataFrame= {
@@ -55,26 +72,12 @@ class Spark {
 
 object Spark_Class extends Spark
 {
-def main (args:Array[String]):Unit ={
-  val spark = SparkSession.builder ().master ("local[*]").appName ("example of SparkSession")
-  .config ("spark.some.config.option", "some-value")
-  .getOrCreate ()
-  // query 1 read the csv file
-  val data = spark.read.option ("header", "true").csv ("/home/nidhi/Desktop/nidhiarora/spark_queries/src/main/resources/FL_insurance_sample.csv")
-  //query 2 print the schema of file
-  data.printSchema ()
-  //query 2 show the data of the file
-  data.show ()
+  def main (args:Array[String]):Unit ={
+        val obj = new Spark()
 
-
-  val a = new Spark()
-
-  a.schema1 (data, "3", "hu", "cd", "df", "de", "er", "ew", "yu", "we", "er")
-
-
-
- spark.time( a.unpivot (data, "1", "2", "3", "4", "5", "6", 2.0, 3.0, 2, 3, 4, 4, 6, 5, 5, 3).show())
-  spark.time(a.groupby (data, "1", "2", "3").show())
+  spark.time(obj.schema1 ("498960", "498960", "49896","498960",  "498960",  "792148.9", "0,9979.2","0","7890","0").printSchema())    
+   spark.time( obj.unpivot (" 119736", "FL","CLAY COUNTY","Masonry","30.102261","-81.711777",  498960, 498960, 49896,498960,  498960,792148.9, 0,9979.2,0,0).show())
+  spark.time(obj.groupby ("100735","[-82.461929]","[29.048983]").show())
 
 }
 }
